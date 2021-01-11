@@ -1,0 +1,4 @@
+${PODS_ROOT}/Target Support Files/Pods-ShapeTakeHomeJairo/Pods-ShapeTakeHomeJairo-frameworks.sh
+${BUILT_PRODUCTS_DIR}/GLTFSceneKit/GLTFSceneKit.framework
+${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework
+${BUILT_PRODUCTS_DIR}/PromisesSwift/Promises.framework

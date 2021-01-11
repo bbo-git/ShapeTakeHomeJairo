@@ -1,0 +1,24 @@
+PODS:
+  - GLTFSceneKit (0.1.3)
+  - PromisesObjC (1.2.12)
+  - PromisesSwift (1.2.12):
+    - PromisesObjC (= 1.2.12)
+
+DEPENDENCIES:
+  - GLTFSceneKit
+  - PromisesSwift (~> 1.2)
+
+SPEC REPOS:
+  trunk:
+    - GLTFSceneKit
+    - PromisesObjC
+    - PromisesSwift
+
+SPEC CHECKSUMS:
+  GLTFSceneKit: fbec7ef104128201bde53ac5bc37c8a05d764cdf
+  PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  PromisesSwift: 64085cf6e5fc1b5001f90cf31e87a1f1621fefee
+
+PODFILE CHECKSUM: dc0095f58d494d77c99a0a397b20f217fc0a2504
+
+COCOAPODS: 1.10.1
