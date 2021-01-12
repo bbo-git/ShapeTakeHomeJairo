@@ -29,7 +29,7 @@ class DownloadManager: NSObject {
     var request: URLRequest?
     
     func getModelsJson(completion: @escaping ([ModelData], Error?) -> Void) {
-        guard let url = URL(string: "https://shape-recruiting.s3.us-east-2.amazonaws.com/ios/3dadv") else { completion([], NetworkError.invalidURL); return;}
+        guard let url = URL(string: "https://shape-recruiting.s3.us-east-2.amazonaws.com/ios/3d") else { completion([], NetworkError.invalidURL); return;}
         session = URLSession(configuration: URLSessionConfiguration.default)
         request = URLRequest(url: url)
         request?.httpMethod = "GET"
@@ -71,56 +71,62 @@ class DownloadManager: NSObject {
         modelSession = URLSession(configuration: URLSessionConfiguration.default, delegate: nil, delegateQueue: nil)
         
         let task = modelSession?.downloadTask(with: modelRequest!, completionHandler: { [weak self] (tmpurl, response, error) in
+            guard let tmpurl = tmpurl else { return }
+            
+            let cahcesURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+            let destinationURL = cahcesURL.appendingPathComponent(remoteurl.lastPathComponent)
+            // delete original copy
+            // copy from temp to Document
             do {
+                //try? FileManager.default.removeItem(at: destinationURL)
+                try FileManager.default.copyItem(at: tmpurl, to: destinationURL)
+                print(FileManager.default.fileExists(atPath: destinationURL.path))
                 
-                guard let tmpurl = tmpurl else { return }
-                
-                let documentDirectoryPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first! as URL
-                let destinationPath = documentDirectoryPath.appendingPathComponent(tmpurl.lastPathComponent)
-                
-                
-                let file: FileHandle = try FileHandle(forReadingFrom: tmpurl)
-                                
-                DispatchQueue.global().async {
-                    let data = file.readDataToEndOfFile()
-                    print(data.count)
-                    print(FileManager().createFile(atPath: destinationPath.absoluteString, contents: data, attributes: nil))
-                }
-                if let index = self?.models.firstIndex(where: { (model) -> Bool in
-                    model.url == response!.url!.absoluteString
-                }) {
-                    self?.models[index].localUrl = destinationPath
-                }
-                promise.fulfill(destinationPath)
-                
-            } catch {
-                print(error.localizedDescription)
+            } catch let error {
+                print("Copy Error: \(error.localizedDescription)")
             }
+            
+            if let index = self?.models.firstIndex(where: { (model) -> Bool in
+                model.url == url
+            }) {
+                self?.models[index].localUrl = destinationURL
+            }
+            promise.fulfill(destinationURL)
+            
         })
         task?.resume()
         
         return promise
     }
-
+    
     func downloadAllModels(completion: @escaping ([URL]) -> Void) {
         
-        if FileManager.default.fileExists(atPath: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.absoluteString ) {
-            let deletePaths: [String] = try! FileManager.default.contentsOfDirectory(atPath: FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!.absoluteString)
-            
-            let _ = deletePaths.map { (path) -> Void in
-                try? FileManager.default.removeItem(at: URL(string: path)!)
+        let cachesURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+        
+        //remove files in documents directory
+        let deletePaths: [String] = try! FileManager.default.contentsOfDirectory(atPath: cachesURL.path)
+        
+        let _ = deletePaths.filter({ (str) -> Bool in
+            str.range(of: "co.bbo.ShapeTakeHomeJairo") == nil
+        }).map { (path) -> Void in
+            do {
+                try FileManager.default.removeItem(at: cachesURL.appendingPathComponent(path))
+            } catch {
+                print(error)
             }
-        } else {
-            try? FileManager.default.createDirectory(at: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!, withIntermediateDirectories: true, attributes: nil)
+            
         }
+        
         
         let networkPromises = models.map {
             performNetworkPromise(url: $0.url)
         }
         
+        //let networkPromises = [models[0]].map { performNetworkPromise(url: $0.url) }
+        
         all(networkPromises).then { urlArray in
             completion(urlArray)
         }
+        
     }
 }
-

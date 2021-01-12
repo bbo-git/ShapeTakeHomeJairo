@@ -11,19 +11,22 @@ class MainVC: UICollectionViewController {
 
     var coordinator: MainCoordinator?
     var models: [ModelData] = []
+    var refresh: UIRefreshControl?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "Take Home Jairo"
         setup()
         getData()
     }
     
     func setup() {
+        collectionView.allowsSelection = false
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "EmptyCell")
         
-        let refresh = UIRefreshControl()
-        refresh.addTarget(self, action: #selector(getData), for: .editingChanged)
+        refresh = UIRefreshControl()
+        refresh?.addTarget(self, action: #selector(getData), for: .editingChanged)
         collectionView.refreshControl = refresh
         
         let layout = MainCollectionLayout()
@@ -43,6 +46,7 @@ class MainVC: UICollectionViewController {
             
             DownloadManager.shared.downloadAllModels() { (urls) in
                 self?.collectionView.reloadData()
+                self?.refresh?.endRefreshing()
             }
         }
     }
@@ -54,10 +58,11 @@ class MainVC: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ModelCell", for: indexPath) as? ModelCell {
             cell.model = DownloadManager.shared.models[indexPath.item]
+            cell.coordinator = self.coordinator
             return cell
         } else {
             return collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyCell", for: indexPath)
         }
     }
-
+    
 }

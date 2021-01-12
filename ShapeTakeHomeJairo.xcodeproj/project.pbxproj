@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		412A7C2525AB6C3800F1DBD8 /* MainCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412A7C2425AB6C3800F1DBD8 /* MainCollectionLayout.swift */; };
+		4165A8BD25ADE08100BE650A /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4165A8BC25ADE08100BE650A /* DetailVC.swift */; };
 		41A58C0025AB0D2C006CBDA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A58BFF25AB0D2C006CBDA1 /* AppDelegate.swift */; };
 		41A58C0425AB0D2C006CBDA1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A58C0325AB0D2C006CBDA1 /* ViewController.swift */; };
 		41A58C0725AB0D2C006CBDA1 /* Gallery.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41A58C0525AB0D2C006CBDA1 /* Gallery.storyboard */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		412A7C2425AB6C3800F1DBD8 /* MainCollectionLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionLayout.swift; sourceTree = "<group>"; };
+		4165A8BC25ADE08100BE650A /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 		41A58BFC25AB0D2C006CBDA1 /* ShapeTakeHomeJairo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShapeTakeHomeJairo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41A58BFF25AB0D2C006CBDA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41A58C0325AB0D2C006CBDA1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -102,7 +104,6 @@
 				41A58BFF25AB0D2C006CBDA1 /* AppDelegate.swift */,
 				41A58C0325AB0D2C006CBDA1 /* ViewController.swift */,
 				41A58C0825AB0D2F006CBDA1 /* Assets.xcassets */,
-				41A58C0A25AB0D2F006CBDA1 /* LaunchScreen.storyboard */,
 			);
 			path = ShapeTakeHomeJairo;
 			sourceTree = "<group>";
@@ -110,6 +111,8 @@
 		41A58C1925AB0DD4006CBDA1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				41A58C0A25AB0D2F006CBDA1 /* LaunchScreen.storyboard */,
+				41A58C0525AB0D2C006CBDA1 /* Gallery.storyboard */,
 				41A58C0D25AB0D2F006CBDA1 /* Info.plist */,
 				41A58C1A25AB0DEC006CBDA1 /* test2.glb */,
 				41C754BA25AB48A900DF0AFD /* 3.glb */,
@@ -124,7 +127,7 @@
 				41D4BDC525AB688E00DF2F4E /* View */,
 				41D4BDC125AB61EF00DF2F4E /* MainCoordinator.swift */,
 				41D4BDC325AB631600DF2F4E /* MainVC.swift */,
-				41A58C0525AB0D2C006CBDA1 /* Gallery.storyboard */,
+				4165A8BC25ADE08100BE650A /* DetailVC.swift */,
 			);
 			path = Gallery;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				41A58C0425AB0D2C006CBDA1 /* ViewController.swift in Sources */,
 				41D4BDC725AB68AE00DF2F4E /* ModelCell.swift in Sources */,
 				412A7C2525AB6C3800F1DBD8 /* MainCollectionLayout.swift in Sources */,
+				4165A8BD25ADE08100BE650A /* DetailVC.swift in Sources */,
 				41A58C0025AB0D2C006CBDA1 /* AppDelegate.swift in Sources */,
 				41D4BDC425AB631600DF2F4E /* MainVC.swift in Sources */,
 			);
