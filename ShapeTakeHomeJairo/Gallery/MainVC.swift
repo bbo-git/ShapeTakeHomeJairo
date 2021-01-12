@@ -26,8 +26,9 @@ class MainVC: UICollectionViewController {
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "EmptyCell")
         
         refresh = UIRefreshControl()
-        refresh?.addTarget(self, action: #selector(getData), for: .editingChanged)
         collectionView.refreshControl = refresh
+        refresh?.addTarget(self, action: #selector(getData), for: .valueChanged)
+        
         
         let layout = MainCollectionLayout()
         collectionView.setCollectionViewLayout(layout, animated: false)
